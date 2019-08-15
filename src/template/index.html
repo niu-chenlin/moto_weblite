@@ -390,14 +390,27 @@
             <form>
                 <div class="re-error">
                     <i class="fa">&#xe663;</i>
-                    <span>抱歉，我们无法识别您输入的手机号。</span>
+                    <span>aa</span>
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入2-10个字符的昵称" id="re-name">
                 </div>
                 <div class="input-group mb-3 fm-text">
                     <input type="text" class="form-control" placeholder="请输入手机号" id="re-phone">
                 </div>
+                <!--<div class="input-group mb-3 fm-text">-->
+                    <!--<input type="text" class="form-control" placeholder="请输入验证码" id="re-code">-->
+                    <!--<button type="button" class="btn btn-success" id="re-c-submit" onclick="send_code()">发送验证码</button>-->
+                <!--</div>-->
                 <div class="input-group mb-3 fm-text">
-                    <input type="text" class="form-control" placeholder="请输入验证码" id="re-code">
-                    <button type="button" class="btn btn-success" id="re-c-submit" onclick="send_code()">发送验证码</button>
+                    <input type="password" class="form-control" placeholder="请输入6-12位字符的密码" id="re-pwd">
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="password" class="form-control" placeholder="请再次确认密码" id="re-cof-pwd">
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <label class="radio-inline fm-radio"><input type="radio" name="optradio" checked id="re-sex"><i class="fa">&#xe646;</i></label>
+                    <label class="radio-inline fm-radio"><input type="radio" name="optradio"><i class="fa">&#xe647;</i></label>
                 </div>
                 <button type="button" class="btn btn-success" id="re-submit" onclick="register()">注册</button>
             </form>

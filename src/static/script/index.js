@@ -85,11 +85,49 @@ $(document).ready(() => {
         $('#register-pop').fadeIn();
     };
 
+
 });
 let send_code = function() {
     if(phone.test($('#re-phone').val())) {
         $('.re-error').slideUp(500);
     } else {
         $('.re-error').slideDown(500);
+    }
+};
+let register = function() {
+    let rex_n = /^[\w|\u4e00-\u9fa5]{2,10}$/; //\u4e00-\u9fa5 //抱歉，我们无法识别您输入的手机号。
+    let rex_p = /^[a-zA-z0-9]{6,12}$/;
+    if(!rex_n.test($('#re-name').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，请输入2-10个字符的昵称，特殊字符只可包含_！";
+        $('.re-error').slideDown(500);
+    } else if(!phone.test($('#re-phone').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，我们无法识别您输入的手机号！";
+        $('.re-error').slideDown(500);
+    } else if(!rex_p.test($('#re-pwd').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，请输入6-12位字符的密码，不能包含特殊字符！";
+        $('.re-error').slideDown(500);
+    } else if(rex_p.test($('#re-pwd').val()) !== rex_p.test($('#re-cof-pwd').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，请再次确认密码";
+        $('.re-error').slideDown(500);
+    } else {
+        $('.re-error').slideUp(100);
+        $.post("/register/", {
+            api: "userLogic.add_user",
+            token: "",
+            name: $('#re-name').val(),
+            phone: $('#re-phone').val(),
+            pwd: $('#re-pwd').val(),
+            sex: $('#re-sex')[0].checked ? 0 : 1
+        }, function(data,status){
+            if(status === "success") {
+                alert("注册成功！");
+            } else {
+                alert("注册失败！");
+            }
+            $('.head').removeClass("blur");
+            $('.content').removeClass("blur");
+            $('.footer').removeClass("blur");
+            $('#register-pop').fadeOut();
+        });
     }
 };
