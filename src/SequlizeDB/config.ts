@@ -5,6 +5,6 @@ export const SeqConfig: SequelizeConfig = {
     dialect: "mysql",
     host: "rm-2zeg7939i55o5k1r9zo.mysql.rds.aliyuncs.com",
     username: "root",
-    password: "root",
+    password: "Niu123456",
     timezone:'+8:00'
 };

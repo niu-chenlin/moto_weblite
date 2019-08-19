@@ -7,6 +7,20 @@ export async function add_user(paras: any): Promise<ApiResponse> {
         await UserAction.addUser(paras);
         return buildSuccessResp();
     } catch (e) {
-        return buildErrorResp(Errors.RET_DB_ERR, e.message);
+        return buildErrorResp(e.errorNo || Errors.RET_DB_ERR, e.message);
+    }
+}
+export async function login_user(paras: any): Promise<ApiResponse> {
+    try {
+        let ret = await UserAction.loginUser(paras);
+        return buildSuccessResp({
+            cookie: JSON.parse(ret.cookie),
+            token: ret.id,
+            userId: ret.userId,
+            role: ret.userType,
+            username: ret.userName
+        });
+    } catch (e) {
+        return buildErrorResp(e.errorNo || Errors.RET_DB_ERR, e.message);
     }
 }

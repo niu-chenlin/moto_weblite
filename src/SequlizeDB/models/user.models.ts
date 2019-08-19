@@ -13,6 +13,8 @@ export class UserModels extends Model<UserModels> {
     @ForeignKey(()=> UserRoleModels)
     @Column
     roleId: number;
+    @BelongsTo(()=>UserRoleModels)
+    role: UserRoleModels;
     @Column
     name: string;
     @Column

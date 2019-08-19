@@ -1,7 +1,7 @@
 import {buildErrorResp} from "../ApiError/ApiResponse";
 import {Errors} from "../ApiError/MotorError";
 import {SessionAction} from "./sessionAction";
-import {ApiUser} from "./user";
+import {ApiUser} from "../apiModules/user";
 
 class CheckResult {
     errorNo: number;
@@ -12,6 +12,8 @@ class CheckResult {
         this.errorLog = msg;
     }
 }
+let ApiModuleMap = {};
+let ApiListMap = {};
 let ApiModules = [
     ApiUser
 ];
@@ -22,20 +24,28 @@ async function apiDispatcher(ctx) {
     if (!api) {
         let resp = buildErrorResp(Errors.RET_NO_SUCH_API, "api not specified");
         ctx.body = JSON.stringify(resp);
-        return
-    }
-
-    if(this.checkToken(args["token"])) {
-        let resp = buildErrorResp(Errors.RET_INVALID_TOKEN, "bad token of " + args["token"]);
-        ctx.body = JSON.stringify(resp);
         return;
     }
-    let doApi = args[api].split('.');
-    return doApi[0].doApi[1]()
+    let apiProto = ApiListMap[api];
+    if(apiProto) {
+        if(!await checkToken(args)) {
+            let resp = buildErrorResp(Errors.RET_INVALID_TOKEN, "bad token of " + args["token"]);
+            ctx.body = JSON.stringify(resp);
+            return;
+        }
+        return apiProto["service"](args["paras"]).then(function(resp) {
+            resp.updateErrorMsg();
+            ctx.body = JSON.stringify(resp);
+        })
+    } else {
+        let resp = buildErrorResp(Errors.RET_NO_SUCH_API, apiProto + "not exist");
+        ctx.body = JSON.stringify(resp);
+    }
+
 }
 function checkToken(args): Promise<boolean> {
     let api = args["api"];
-    if (api == "motor.user.register" || api == "motor.user.login" || api == "motor.user.logout") {
+    if (api == "user.APIAddUser" || api == "motor.user.login" || api == "motor.user.logout") {
         return new Promise(function (resolve) {
             return resolve(true);
         });
@@ -56,3 +66,14 @@ function checkToken(args): Promise<boolean> {
         return false;
     });
 }
+
+function initApis() {
+    for(let apiModules of ApiModules) {
+        for(let api of apiModules["apis"]) {
+            let apiKey = apiModules["module"]+ "." + api["key"];
+            ApiListMap[apiKey] = api;
+        }
+    }
+}
+
+export {apiDispatcher, initApis}

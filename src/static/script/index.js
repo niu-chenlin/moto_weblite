@@ -1,6 +1,16 @@
+const AuthTools = require("./util-tools/auth-tools");
+const PublicTools = require("./util-tools/public-tools");
+
 let phone = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
 let email = /^[a-zA-z0-9]+@[a-zA-z0-9]+(\.[a-zA-Z0-9_-]+)+$/;
 $(document).ready(() => {
+    if(AuthTools.getAuthInfo()) {
+        $('#before').hide();
+        $('#later').show();
+    } else {
+        $('#before').show();
+        $('#later').hide();
+    }
     $('#select-value').text("地点");
     $('.select').click(() => {
         $('.options').slideToggle(300);
@@ -23,6 +33,8 @@ $(document).ready(() => {
         $('#relation-pop').fadeOut();
         $('#cooperation-pop').fadeOut();
         $('#cooperation-auth-code-pop').fadeOut();
+        $('#register-pop').fadeOut();
+        $('#login-pop').fadeOut();
     });
     $('#relation').click(() => {
         $('.head').addClass("blur");
@@ -78,25 +90,33 @@ $(document).ready(() => {
             alert("请输入正确内容！");
         }
     });
-    let login_up = function() {
-        $('.head').addClass("blur");
-        $('.content').addClass("blur");
-        $('.footer').addClass("blur");
-        $('#register-pop').fadeIn();
-    };
-
-
 });
+let rex_n = /^[\w|\u4e00-\u9fa5]{2,10}$/; //手机号。
+let rex_p = /^[a-zA-z0-9]{6,12}$/; //密码
 let send_code = function() {
+    //发送验证码
     if(phone.test($('#re-phone').val())) {
         $('.re-error').slideUp(500);
     } else {
         $('.re-error').slideDown(500);
     }
 };
+let register_up = function() {
+    $('.re-error').hide();
+    $('.head').addClass("blur");
+    $('.content').addClass("blur");
+    $('.footer').addClass("blur");
+    $('#register-pop').fadeIn();
+};
+let login_up = function() {
+    $('.re-error').hide();
+    $('.head').addClass("blur");
+    $('.content').addClass("blur");
+    $('.footer').addClass("blur");
+    $('#login-pop').fadeIn();
+};
 let register = function() {
-    let rex_n = /^[\w|\u4e00-\u9fa5]{2,10}$/; //\u4e00-\u9fa5 //抱歉，我们无法识别您输入的手机号。
-    let rex_p = /^[a-zA-z0-9]{6,12}$/;
+    $(".re-error i").first().first()[0].innerHTML = "&#xe663;";
     if(!rex_n.test($('#re-name').val())) {
         $(".re-error span").first().first()[0].innerText = "抱歉，请输入2-10个字符的昵称，特殊字符只可包含_！";
         $('.re-error').slideDown(500);
@@ -111,23 +131,85 @@ let register = function() {
         $('.re-error').slideDown(500);
     } else {
         $('.re-error').slideUp(100);
-        $.post("/register/", {
-            api: "userLogic.add_user",
+        $.post("/api/", {
+            api: "user.APIAddUser",
             token: "",
-            name: $('#re-name').val(),
-            phone: $('#re-phone').val(),
-            pwd: $('#re-pwd').val(),
-            sex: $('#re-sex')[0].checked ? 0 : 1
-        }, function(data,status){
-            if(status === "success") {
-                alert("注册成功！");
-            } else {
-                alert("注册失败！");
+            paras: {
+                name: $('#re-name').val(),
+                phone: $('#re-phone').val(),
+                password: $('#re-pwd').val(),
+                sex: $('#re-sex')[0].checked ? 0 : 1
             }
-            $('.head').removeClass("blur");
-            $('.content').removeClass("blur");
-            $('.footer').removeClass("blur");
-            $('#register-pop').fadeOut();
+        }, function(data,status){
+            let e = PublicTools.getErrorObj(data);
+            if(e && e.errorObj.errorNo !== 0) {
+                if(e.errorObj.errorNo === 8) {
+                    $(".re-error span").first().first()[0].innerText = "手机号已注册，请直接登录!";
+                    $('.re-error').slideDown(500);
+                }
+            } else {
+                $(".re-error i").first().first()[0].innerHTML = "&#xe642;";
+                $(".re-error i").first().css("color", "#48a645");
+                $(".re-error span").first().first()[0].innerText = "注册成功!";
+                $('.re-error').slideDown(500);
+                setTimeout(() => {
+                    $('.head').removeClass("blur");
+                    $('.content').removeClass("blur");
+                    $('.footer').removeClass("blur");
+                    $('#register-pop').fadeOut();
+                }, 1500);
+            }
+        });
+    }
+};
+let login = function() {
+    if(!phone.test($('#lo-phone').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，我们无法识别您输入的手机号！";
+        $('.re-error').slideDown(500);
+    } else if(!rex_p.test($('#lo-pwd').val())) {
+        $(".re-error span").first().first()[0].innerText = "抱歉，请输入6-12位字符的密码，不能包含特殊字符！";
+        $('.re-error').slideDown(500);
+    } else {
+        $.post('/api/', {
+            api: "user.APILoginUser",
+            token: "",
+            paras: {
+                phone: $('#lo-phone').val(),
+                password: $('#lo-pwd').val()
+            }
+        }, function(data, status) {
+            let e = PublicTools.getErrorObj(data);
+            let d = PublicTools.getDataObj(data);
+            if(e && e.errorObj.errorNo !== 0) {
+                if(e.errorObj.errorNo === 7) {
+                    $(".re-error span").first().first()[0].innerText = "手机号未注册!";
+                    $('.re-error').slideDown(500);
+                } else if(e.errorObj.errorNo === 45) {
+                    $(".re-error span").first().first()[0].innerText = "密码错误!";
+                    $('.re-error').slideDown(500);
+                }
+            } else {
+                AuthTools.setAuthInfo({
+                    id: d.cookie.id,
+                    username: d.cookie.username,
+                    role: d.cookie.role,
+                    rights: d.cookie.rights,
+                    token: d.token,
+                    time: (new Date()).getTime()
+                });
+                $('#before').hide();
+                $('#later').show();
+                $(".re-error i").first().first()[0].innerHTML = "&#xe642;";
+                $(".re-error i").first().css("color", "#48a645");
+                $(".re-error span").first().first()[0].innerText = "登录成功!";
+                $('.re-error').slideDown(500);
+                setTimeout(() => {
+                    $('.head').removeClass("blur");
+                    $('.content').removeClass("blur");
+                    $('.footer').removeClass("blur");
+                    $('#register-pop').fadeOut();
+                }, 1500);
+            }
         });
     }
 };

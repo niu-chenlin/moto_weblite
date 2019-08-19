@@ -5,6 +5,7 @@ import * as KoaStatic from 'koa-static';
 import * as KoaViews from 'koa-views';
 import * as nodemailer from 'nodemailer';
 import {SequelizeDB} from "./SequlizeDB";
+import {apiDispatcher, initApis} from "./apiAction/api";
 
 const app = new Koa();
 const router:Router = new Router();
@@ -33,8 +34,7 @@ router.post('/cooperation/', async (ctx) => {
     ctx.response.body = 'success';
 });
 router.post('/api/', async (ctx) => {
-    const data = ctx.request.body;
-
+    await apiDispatcher(ctx);
 });
 
 app.use(KoaBodyParser());
@@ -42,6 +42,7 @@ app.use(KoaViews('src/template', {extension: 'html', map: {html: 'ejs'}}));
 app.use(KoaStatic('src/static'));
 app.use(router.routes()).use(router.allowedMethods());
 SequelizeDB.init();
+initApis();
 app.listen(3000, () => {
     console.log("run......");
 });

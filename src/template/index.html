@@ -70,7 +70,7 @@
                 <!--<input class="form-control search-input" type="text" placeholder="Search">-->
                 <!--<button class="btn btn-success search-btn" type="button">Search</button>-->
             <!--</form>-->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" id="before">
                 <li class="nav-item">
                     <i class="fa">&#xe62e;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)" onclick="login_up()">登录</a>
@@ -84,6 +84,12 @@
                     <a class="nav-link nav-a" href="javascript: void(0)">故事</a>
                 </li>
                 <li class="nav-item">
+                    <i class="fa">&#xe602;</i>
+                    <a class="nav-link nav-a" href="javascript: void(0)">帮助</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" id="later">
+                <li class="nav-item">
                     <i class="fa">&#xe606;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">出租</a>
                 </li>
@@ -94,6 +100,15 @@
                 <li class="nav-item">
                     <i class="fa">&#xe602;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">帮助</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa">&#xe602;</i>
+                    <a class="nav-link nav-a" href="javascript: void(0)">消息</a>
+                    <i class="fa"></i>
+                </li>
+                <li class="nav-item">
+                    <i class="fa">&#xe602;</i>
+                    <a class="nav-link nav-a" href="javascript: void(0)">用户</a>
                 </li>
             </ul>
         </nav>
@@ -389,8 +404,8 @@
         <div class="context">
             <form>
                 <div class="re-error">
-                    <i class="fa">&#xe663;</i>
-                    <span>aa</span>
+                    <i class="fa"></i>
+                    <span></span>
                 </div>
                 <div class="input-group mb-3 fm-text">
                     <input type="text" class="form-control" placeholder="请输入2-10个字符的昵称" id="re-name">
@@ -412,11 +427,40 @@
                     <label class="radio-inline fm-radio"><input type="radio" name="optradio" checked id="re-sex"><i class="fa">&#xe646;</i></label>
                     <label class="radio-inline fm-radio"><input type="radio" name="optradio"><i class="fa">&#xe647;</i></label>
                 </div>
-                <button type="button" class="btn btn-success" id="re-submit" onclick="register()">注册</button>
+                <button type="button" class="btn btn-success rl-submit" onclick="register()">注册</button>
             </form>
         </div>
         <div class="bottom">
             <span>欢迎加入我们！</span>
+        </div>
+    </div>
+    <div class="re-login" id="login-pop">
+        <div class="top">
+            <span class="title">登录</span>
+            <span class="fa close-pop">&#xe7f7;</span>
+            <span class="sec-title">没有账号？<a href="#">注册</a></span>
+        </div>
+        <div class="context">
+            <form>
+                <div class="re-error">
+                    <i class="fa"></i>
+                    <span></span>
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入手机号" id="lo-phone">
+                </div>
+                <!--<div class="input-group mb-3 fm-text">-->
+                <!--<input type="text" class="form-control" placeholder="请输入验证码" id="re-code">-->
+                <!--<button type="button" class="btn btn-success" id="re-c-submit" onclick="send_code()">发送验证码</button>-->
+                <!--</div>-->
+                <div class="input-group mb-3 fm-text">
+                    <input type="password" class="form-control" placeholder="请输入6-12位字符的密码" id="lo-pwd">
+                </div>
+                <button type="button" class="btn btn-success rl-submit" onclick="login()">登录</button>
+            </form>
+        </div>
+        <div class="bottom">
+            <span>欢迎回来！</span>
         </div>
     </div>
 <script src="/script/index.js"></script>
