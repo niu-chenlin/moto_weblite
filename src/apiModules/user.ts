@@ -1,4 +1,4 @@
-import {add_user, login_user} from "../apiLogic/userLogic";
+import {add_user, login_user, logout_user} from "../apiLogic/userLogic";
 import {PARAM_TYPE_STRING, PARAM_NOT_NULL, PARAM_TYPE_INT} from "../apiAction/config";
 
 export const ApiUser = {
@@ -44,6 +44,18 @@ export const ApiUser = {
                 "phone": {
                     "type": PARAM_TYPE_STRING,
                     "desc": "Phone Number",
+                    "default": ""
+                }
+            }
+        },
+        {
+            "name": "退出登录",
+            "key": "APILogoutUser",
+            "service": logout_user,
+            "paras": {
+                "tooken": {
+                    "type": PARAM_TYPE_STRING,
+                    "desc": "tooken",
                     "default": ""
                 }
             }

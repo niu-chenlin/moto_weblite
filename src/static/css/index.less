@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fa';  /* project id 1285444 */
-  src: url('//at.alicdn.com/t/font_1285444_j04tcq0l45.eot');
-  src: url('//at.alicdn.com/t/font_1285444_j04tcq0l45.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1285444_j04tcq0l45.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1285444_j04tcq0l45.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1285444_j04tcq0l45.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1285444_j04tcq0l45.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.eot');
+  src: url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1285444_f34rn0gndt4.svg#iconfont') format('svg');
 }
 .fa {
   font-family: fa;
@@ -109,21 +109,83 @@
     ul {
       position: absolute;
       right: 0;
-      height: 2.2rem;
+      //height: 2.2rem;
       li {
+        cursor: pointer;
         color: white;
         font-size: 1rem;
-        width: 6.3rem;
-        :hover {
-          font-size: 1.2rem;
-          animation: nav-hover 100ms linear;
+        margin-right: 30px;
+        height: 40px;
+        &:hover {
+          //font-size: 1.2rem;
+          //animation: nav-hover 100ms linear;
+          border-bottom: 2px solid;
         }
         .nav-a {
           display: inline-block;
           padding-left: 0;
-          margin-right: 30px;
           color: white;
         }
+        &.nav-msg {
+          a {
+            margin-right: 0;
+            padding-right: 0;
+          }
+          .msg-icon {
+            display: none;
+            color: red;
+            font-size: 2rem;
+            line-height: 10px;
+            width: 0;
+          }
+        }
+        &.nav-user {
+          width: 150px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  .user-pop {
+    display: none;
+    position: absolute;
+    width: 15%;
+    background-color: white;
+    right: 33px;
+    top: 55px;
+    text-align: left;
+    z-index: 1;
+    ul {
+      padding: 15px;
+      li {
+        font-size: .9rem;
+        font-weight: 600;
+        padding: 10px;
+        list-style: none;
+        border-bottom: 1px solid #dedddd;
+        a {
+          color: #8b8a8a;
+          text-decoration: none;
+        }
+        &:hover {
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+  }
+  .help-pop {
+    position: absolute;
+    width: 15%;
+    background-color: white;
+    right: 33px;
+    top: 55px;
+    text-align: left;
+    z-index: 1;
+    ul {
+      li {
+        list-style: none;
       }
     }
   }
@@ -352,7 +414,7 @@
 }
 .footer {
   border-top: 1px solid #dad5d5;
-  background-color: #eaeaea;
+  //background-color: #eaeaea;
   .f-area {
     position: relative;
     margin: 0 auto;
@@ -365,10 +427,12 @@
         display: block;
         font-weight: 600;
         padding: 10px 0;
-        color: #545353;
+        color: #333333;
       }
       ul {
         padding: 0;
+        font-weight: 600;
+        font-size: .9rem;
         li {
           list-style: none;
           line-height: 30px;

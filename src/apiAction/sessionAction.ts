@@ -5,7 +5,7 @@ const EXPIRE_TIMEOUT = (30 * 24 * 60 * 60 * 1000);
 export interface SessionSeed {
     userId: string,
     username: string,
-    role: UserRoleModels
+    role: any
 }
 export class SessionAction {
     /**
@@ -44,6 +44,11 @@ export class SessionAction {
 
     public static async deleteSessionByUserID(userId: string){
         return SessionModels.destroy({
+            where: {userId: userId}
+        })
+    }
+    public static async getSessionByUserID(userId: string){
+        return SessionModels.findOne({
             where: {userId: userId}
         })
     }

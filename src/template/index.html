@@ -22,9 +22,9 @@
             </ul>
 
             <!-- 轮播图片 -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="background-color: bisque">
                 <div class="carousel-item active">
-                    <img src="/images/index/h-1.jpg">
+                    <img src="/images/index/h-11.jpg">
                     <div class="img-info">
                         <div class="title">This is title1</div>
                         <div class="info">This is info1</div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/index/h-2.jpg">
+                    <img src="/images/index/h-21.jpg">
                     <div class="img-info">
                         <div class="title">This is title2</div>
                         <div class="info">This is info2</div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="/images/index/h-3.jpg">
+                    <img src="/images/index/h-31.jpg">
                     <div class="img-info">
                         <div class="title">This is title3</div>
                         <div class="info">This is info3</div>
@@ -97,22 +97,62 @@
                     <i class="fa">&#xe634;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">买卖</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-help">
                     <i class="fa">&#xe602;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">帮助</a>
                 </li>
-                <li class="nav-item">
-                    <i class="fa">&#xe602;</i>
+                <li class="nav-item nav-msg">
+                    <i class="fa">&#xe61e;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">消息</a>
-                    <i class="fa"></i>
+                    <i class="fa msg-icon">&#xec1e;</i>
                 </li>
-                <li class="nav-item">
-                    <i class="fa">&#xe602;</i>
-                    <a class="nav-link nav-a" href="javascript: void(0)">用户</a>
+                <li class="nav-item nav-user">
+                    <i class="fa">&#xe67e;</i>
+                    <a class="nav-link nav-a " href="javascript: void(0)"></a>
                 </li>
             </ul>
         </nav>
-
+        <div class="help-pop" id="b-help-pop">
+            <ul>
+                <li>
+                    <div class="title">如何创建账号？</div>
+                    <div class="info">
+                        如果您还没有爱摩旅账号，请在当前页面点击注册。输入您的昵称、手机号、登录密码后点击注册即可。本网站暂时只提供手机号注册。
+                    </div>
+                </li>
+                <li>
+                    <div class="title">如何修改我的密码？</div>
+                    <div class="info">
+                        如果您忘记或者想修改您的登录密码，请在当前页面点击登录。在弹出框中点击忘记密码。输入。
+                    </div>
+                </li>
+                <!--<li>-->
+                    <!--<div class="title">忘记登录密码怎么办？</div>-->
+                    <!--<div class="info">-->
+                        <!--如果您忘记了您的登录密码，请在当前页面点击登录。在弹出框中点击忘记密码。输入。-->
+                    <!--</div>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="user-pop" id="user-pop">
+            <ul>
+                <li><a href="javascript: void(0)">个人资料</a></li>
+                <li><a href="javascript: void(0)">我的团队</a></li>
+                <li><a href="javascript: void(0)">摩旅指南</a></li>
+                <li><a href="javascript: void(0)">摩旅故事</a></li>
+                <li><a href="javascript: void(0)" onclick="logout()">退出</a></li>
+            </ul>
+        </div>
+        <div class="user-pop" id="msg-pop" style="right: 207px">
+            <ul>
+                <li><a href="javascript: void(0)">通知</a></li>
+            </ul>
+        </div>
+        <div class="help-pop" id="help-pop" style="right: 302px">
+            <ul>
+                <li><a href="javascript: void(0)">帮助</a></li>
+            </ul>
+        </div>
     </div>
     <div class="container-fluid content">
         <div class="nav-form">
@@ -399,11 +439,11 @@
         <div class="top">
             <span class="title">注册</span>
             <span class="fa close-pop">&#xe7f7;</span>
-            <span class="sec-title">已有账号？<a href="#">登录</a></span>
+            <span class="sec-title">已有账号？<a href="javascript: void(0)" onclick="login_up()">登录</a></span>
         </div>
         <div class="context">
             <form>
-                <div class="re-error">
+                <div class="re-error" id="re-error">
                     <i class="fa"></i>
                     <span></span>
                 </div>
@@ -438,11 +478,12 @@
         <div class="top">
             <span class="title">登录</span>
             <span class="fa close-pop">&#xe7f7;</span>
-            <span class="sec-title">没有账号？<a href="#">注册</a></span>
+            <span class="sec-title">没有账号？<a href="javascript: void(0)" onclick="register_up()">注册</a>
+                <a href="javascript: void(0)" onclick="uppwd_up()">忘记密码</a></span>
         </div>
         <div class="context">
             <form>
-                <div class="re-error">
+                <div class="re-error" id="lo-error">
                     <i class="fa"></i>
                     <span></span>
                 </div>
@@ -463,6 +504,9 @@
             <span>欢迎回来！</span>
         </div>
     </div>
+    <script src="/script/lib//base64.js"></script>
+    <script src="/script/util-tools/auth-tools.js"></script>
+    <script src="/script/util-tools/public-tools.js"></script>
 <script src="/script/index.js"></script>
 </body>
 </html>

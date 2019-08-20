@@ -23,7 +23,8 @@ export class UserAction {
     public static async getUserByPhone(phone: string) {
         return UserModels.findOne({
             raw: true,
-            where: {phone}
+            where: {phone},
+            include: [{model: UserRoleModels}]
         })
     }
     /**
@@ -53,7 +54,7 @@ export class UserAction {
      * @constructor
      */
     public static async loginUser(param: loginUserFilter) {
-        let pUser = await this.getUserByPhone(param.phone);
+        let pUser: UserModels = await this.getUserByPhone(param.phone);
         if(!pUser) {
             throw new APIError(Errors.RET_ITEM_NOT_EXIST, "用户不存在");
         }
@@ -68,7 +69,22 @@ export class UserAction {
         return await SessionAction.insertSession({
             userId: pUser.id,
             username: pUser.name,
-            role: pUser.role
+            role: {
+                id: pUser['role.id'],
+                roleType: pUser['role.roleType'],
+                authority: pUser['role.authority']
+            }
         })
+    }
+
+    /**
+     * 退出登录
+     * @param {string} tooken
+     * @returns {Bluebird<number>}
+     */
+    public static async logoutUser(tooken: string) {
+        return await SessionModels.destroy({
+            where: {id: tooken}
+        });
     }
 }

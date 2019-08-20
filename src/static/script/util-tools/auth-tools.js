@@ -1,6 +1,4 @@
-const Base64 = require("js-base64");
-
-const AUTH_NAME = 'MOTOR_AUTH';
+let AUTH_NAME = 'MOTOR_AUTH';
 class AuthTools {
     static setAuthInfo(user) {
         let jsonData = JSON.stringify(user);
@@ -8,12 +6,14 @@ class AuthTools {
         localStorage.setItem(AUTH_NAME, base64Data)
     }
     static getAuthInfo() {
-        let base64Data = localStorage.getItem(AUTH_NAME) ;
-        let jsonData = Base64.decode(base64Data);
-        return JSON.parse(jsonData);
+        let base64Data = localStorage.getItem(AUTH_NAME);
+        if(base64Data) {
+            let jsonData = Base64.decode(base64Data);
+            return JSON.parse(jsonData);
+        }
+        return false;
     }
     static clearAuthInfo() {
         localStorage.clear();
     }
 }
-exports.AuthTools = AuthTools;

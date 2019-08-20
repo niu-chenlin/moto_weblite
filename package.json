@@ -32,6 +32,7 @@
     "nodemailer": "^6.3.0",
     "popper.js": "^1.15.0",
     "reflect-metadata": "^0.1.13",
+    "require.js": "^1.0.0",
     "sequelize": "^4.44.2",
     "sequelize-typescript": "^0.6.7"
   },

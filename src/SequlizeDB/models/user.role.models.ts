@@ -5,8 +5,10 @@ import {TB_NAMES} from "../table.enum";
 export class UserRoleModels extends Model<UserRoleModels> {
     @Column({
         primaryKey: true,
+        allowNull: false,
+        unique: true,
         autoIncrement: true,
-        field: "ID"
+        field: 'ID'
     })
     id: number;
     @Column

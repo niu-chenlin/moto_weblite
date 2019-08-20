@@ -45,7 +45,7 @@ async function apiDispatcher(ctx) {
 }
 function checkToken(args): Promise<boolean> {
     let api = args["api"];
-    if (api == "user.APIAddUser" || api == "motor.user.login" || api == "motor.user.logout") {
+    if (api == "user.APIAddUser" || api == "user.APILoginUser" || api == "user.APILogoutUser") {
         return new Promise(function (resolve) {
             return resolve(true);
         });
