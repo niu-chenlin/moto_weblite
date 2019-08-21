@@ -106,19 +106,13 @@ $(document).ready(() => {
         $('#help-pop').fadeToggle(500);
     });
 });
-let rex_n = /^[\w|\u4e00-\u9fa5]{2,10}$/; //手机号。
+let rex_n = /^[\w|\u4e00-\u9fa5]{2,10}$/;
 let rex_p = /^[a-zA-z0-9]{6,12}$/; //密码
-let send_code = function() {
-    //发送验证码
-    if(phone.test($('#re-phone').val())) {
-        $('.re-error').slideUp(500);
-    } else {
-        $('.re-error').slideDown(500);
-    }
-};
+
 let register_up = function() {
     $('#login-pop').hide();
     $('.re-error').hide();
+    $('#reset-pwd-pop').hide();
     $('.head').addClass("blur");
     $('.content').addClass("blur");
     $('.footer').addClass("blur");
@@ -126,14 +120,71 @@ let register_up = function() {
 };
 let login_up = function() {
     $('#register-pop').hide();
+    $('#reset-pwd-pop').hide();
     $('.re-error').hide();
     $('.head').addClass("blur");
     $('.content').addClass("blur");
     $('.footer').addClass("blur");
     $('#login-pop').fadeIn();
 };
+let reset_pwd_up = function() {
+    $('#register-pop').hide();
+    $('#login-pop').hide();
+    $('.re-error').hide();
+    $('.head').addClass("blur");
+    $('.content').addClass("blur");
+    $('.footer').addClass("blur");
+    $('#reset-pwd-pop').fadeIn();
+};
 let uppwd_up = function() {
 
+};
+let h_open = function() {
+    $('#b-help-pop').fadeIn();
+};
+let h_close = function() {
+    $('#b-help-pop').fadeOut();
+};
+let help_title_click = function(ev) {
+    if($(ev.target).next()[0].style.display === "none") {
+        $(ev.target).children('i').css("transform", "rotate(0)");
+    } else {
+        $(ev.target).children('i').css("transform", "rotate(-90deg)");
+    }
+    $(ev.target).next().slideToggle();
+};
+let send_code = function(ev) {
+    $(ev.target).parent().siblings().first().children().first().html("&#xe663;");
+    let p = $(ev.target).parent().prev().children().first().val();
+    let yzm = Math.ceil(Math.random()*(999999-100000)+100000);
+    if(!phone.test(p)) {
+        $(ev.target).parent().siblings().first().children().last().text("抱歉，我们无法识别您输入的手机号！"); //= "抱歉，我们无法识别您输入的手机号！";
+        $(ev.target).parent().siblings().first().slideDown(500);
+    } else {
+        localStorage.setItem(p, yzm);
+        setTimeout(function() {
+            localStorage.removeItem(p);
+        }, 1000*60*3);//13269619408
+        $.ajax({
+            url: "http://dxyzm.market.alicloudapi.com/chuangxin/dxjk",
+            type: "post",
+            headers: {
+                "Authorization": "APPCODE 4f8121b50b244f909ab28f882231f5fc",
+                'Content-Type': 'application/json'
+            },
+            data: {
+                mobile: phone,
+                content: "【xx】验证码为 "+ yzm +", 验证码3分钟有效，请尽快验证。"
+            },
+            success: function(data, status) {
+                console.log(data);
+                console.log(status);
+                if(status === "success") {
+
+                }
+            }
+        });
+    }
 };
 
 let register = function() {
@@ -149,6 +200,12 @@ let register = function() {
         $('#re-error').slideDown(500);
     } else if(rex_p.test($('#re-pwd').val()) !== rex_p.test($('#re-cof-pwd').val())) {
         $("#re-error span").first().first()[0].innerText = "抱歉，请再次确认密码";
+        $('#re-error').slideDown(500);
+    } else if(!localStorage.getItem($('#re-phone').val())) {
+        $("#re-error span").first().first()[0].innerText = "验证码未发送或已失效";
+        $('#re-error').slideDown(500);
+    } else if($('#re-phone').val() !== localStorage.getItem($('#re-phone').val())) {
+        $("#re-error span").first().first()[0].innerText = "验证码输入错误";
         $('#re-error').slideDown(500);
     } else {
         $('#re-error').slideUp(100);
@@ -255,4 +312,12 @@ let logout = function() {
         $('#later').hide();
         $('#user-pop').hide();
     });
+};
+let uppwd = function() {
+
+};
+let resetPwd = function() {
+    /**
+     * 重置密码
+     */
 };

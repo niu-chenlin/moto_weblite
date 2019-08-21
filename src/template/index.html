@@ -85,7 +85,7 @@
                 </li>
                 <li class="nav-item">
                     <i class="fa">&#xe602;</i>
-                    <a class="nav-link nav-a" href="javascript: void(0)">帮助</a>
+                    <a class="nav-link nav-a" href="javascript: void(0)" onclick="h_open()">帮助</a>
                 </li>
             </ul>
             <ul class="navbar-nav" id="later">
@@ -99,7 +99,7 @@
                 </li>
                 <li class="nav-item nav-help">
                     <i class="fa">&#xe602;</i>
-                    <a class="nav-link nav-a" href="javascript: void(0)">帮助</a>
+                    <a class="nav-link nav-a" href="javascript: void(0)" onclick="h_open()">帮助</a>
                 </li>
                 <li class="nav-item nav-msg">
                     <i class="fa">&#xe61e;</i>
@@ -113,25 +113,35 @@
             </ul>
         </nav>
         <div class="help-pop" id="b-help-pop">
+            <div class="h-title">
+                <span>推荐帮助</span>
+                <i class="fa" onclick="h_close()">&#xe7f7;</i>
+            </div>
             <ul>
                 <li>
-                    <div class="title">如何创建账号？</div>
-                    <div class="info">
+                    <div class="title" onclick="help_title_click(event)">这个网站是干什么的？<i class="fa">&#xe6b9;</i></div>
+                    <div class="info" style="display: none">
+                        爱摩旅，一个用于帮助爱摩托车的你组建或加入团队的网站。此外还可以在网站分享你的故事，你的经验。想买卖摩托车也可以，就是这么便捷。
+                    </div>
+                </li>
+                <li>
+                    <div class="title" onclick="help_title_click(event)">如何创建账号？<i class="fa">&#xe6b9;</i></div>
+                    <div class="info" style="display: none">
                         如果您还没有爱摩旅账号，请在当前页面点击注册。输入您的昵称、手机号、登录密码后点击注册即可。本网站暂时只提供手机号注册。
                     </div>
                 </li>
                 <li>
-                    <div class="title">如何修改我的密码？</div>
+                    <div class="title" onclick="help_title_click(event)">如何修改我的密码？<i class="fa">&#xe6b9;</i></div>
                     <div class="info">
-                        如果您忘记或者想修改您的登录密码，请在当前页面点击登录。在弹出框中点击忘记密码。输入。
+                        如果您想修改您的登录密码，请登录后点击个人头像、选择修改密码。输入旧密码和新密码点击修改即可。
                     </div>
                 </li>
-                <!--<li>-->
-                    <!--<div class="title">忘记登录密码怎么办？</div>-->
-                    <!--<div class="info">-->
-                        <!--如果您忘记了您的登录密码，请在当前页面点击登录。在弹出框中点击忘记密码。输入。-->
-                    <!--</div>-->
-                <!--</li>-->
+                <li>
+                    <div class="title" onclick="help_title_click(event)">忘记登录密码怎么办？<i class="fa">&#xe6b9;</i></div>
+                    <div class="info">
+                        由于资金短缺，本平台暂不支持密码重置功能。如需重置密码，请在页脚点击“微信，头条”按钮，扫描弹出框内的微信群二维码，进群联系“大森林的早晨”。
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="user-pop" id="user-pop">
@@ -146,11 +156,6 @@
         <div class="user-pop" id="msg-pop" style="right: 207px">
             <ul>
                 <li><a href="javascript: void(0)">通知</a></li>
-            </ul>
-        </div>
-        <div class="help-pop" id="help-pop" style="right: 302px">
-            <ul>
-                <li><a href="javascript: void(0)">帮助</a></li>
             </ul>
         </div>
     </div>
@@ -453,10 +458,10 @@
                 <div class="input-group mb-3 fm-text">
                     <input type="text" class="form-control" placeholder="请输入手机号" id="re-phone">
                 </div>
-                <!--<div class="input-group mb-3 fm-text">-->
-                    <!--<input type="text" class="form-control" placeholder="请输入验证码" id="re-code">-->
-                    <!--<button type="button" class="btn btn-success" id="re-c-submit" onclick="send_code()">发送验证码</button>-->
-                <!--</div>-->
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入验证码" id="re-code">
+                    <button type="button" class="btn btn-success re-c-submit" onclick="send_code(event)">发送验证码</button>
+                </div>
                 <div class="input-group mb-3 fm-text">
                     <input type="password" class="form-control" placeholder="请输入6-12位字符的密码" id="re-pwd">
                 </div>
@@ -479,7 +484,7 @@
             <span class="title">登录</span>
             <span class="fa close-pop">&#xe7f7;</span>
             <span class="sec-title">没有账号？<a href="javascript: void(0)" onclick="register_up()">注册</a>
-                <a href="javascript: void(0)" onclick="uppwd_up()">忘记密码</a></span>
+                <!--<a href="javascript: void(0)" onclick="reset_pwd_up()">忘记密码</a></span>-->
         </div>
         <div class="context">
             <form>
@@ -492,12 +497,71 @@
                 </div>
                 <!--<div class="input-group mb-3 fm-text">-->
                 <!--<input type="text" class="form-control" placeholder="请输入验证码" id="re-code">-->
-                <!--<button type="button" class="btn btn-success" id="re-c-submit" onclick="send_code()">发送验证码</button>-->
+                <!--<button type="button" class="btn btn-success re-c-submit" onclick="send_code()">发送验证码</button>-->
                 <!--</div>-->
                 <div class="input-group mb-3 fm-text">
                     <input type="password" class="form-control" placeholder="请输入6-12位字符的密码" id="lo-pwd">
                 </div>
                 <button type="button" class="btn btn-success rl-submit" onclick="login()">登录</button>
+            </form>
+        </div>
+        <div class="bottom">
+            <span>欢迎回来！</span>
+        </div>
+    </div>
+    <div class="re-login" id="uppwd-pop">
+        <div class="top">
+            <span class="title">修改密码</span>
+            <span class="fa close-pop">&#xe7f7;</span>
+        </div>
+        <div class="context">
+            <form>
+                <div class="re-error" id="uppwd-error">
+                    <i class="fa"></i>
+                    <span></span>
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入手机号" id="uppwd-phone">
+                </div>
+                <!--<div class="input-group mb-3 fm-text">-->
+                    <!--<input type="text" class="form-control" placeholder="请输入验证码" id="uppwd-code">-->
+                    <!--<button type="button" class="btn btn-success re-c-submit" onclick="send_code()">发送验证码</button>-->
+                <!--</div>-->
+                <div class="input-group mb-3 fm-text">
+                    <input type="password" class="form-control" placeholder="请输入6-12位字符的旧密码" id="uppwd-old-pwd">
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="password" class="form-control" placeholder="请输入6-12位字符的新密码" id="uppwd-new-pwd">
+                </div>
+                <button type="button" class="btn btn-success rl-submit" onclick="uppwd()">修改</button>
+            </form>
+        </div>
+        <div class="bottom">
+            <span>欢迎回来！</span>
+        </div>
+    </div>
+    <div class="re-login" id="reset-pwd-pop">
+        <div class="top">
+            <span class="title">重置密码</span>
+            <span class="fa close-pop">&#xe7f7;</span>
+        </div>
+        <div class="context">
+            <form>
+                <div class="re-error" id="rp-error">
+                    <i class="fa"></i>
+                    <span></span>
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入手机号" id="rp-phone">
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="text" class="form-control" placeholder="请输入验证码" id="uppwd-code">
+                    <button type="button" class="btn btn-success" id="uppwd-submit" onclick="send_code(event)">发送验证码</button>
+                </div>
+                <div class="input-group mb-3 fm-text">
+                    <input type="password" class="form-control" placeholder="请输入6-12位字符的新密码" id="rp-pwd">
+                </div>
+                <button type="button" class="btn btn-success rl-submit" onclick="resetPwd()">重置</button>
             </form>
         </div>
         <div class="bottom">
