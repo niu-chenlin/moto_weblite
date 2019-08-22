@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <title>摩旅网</title>
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/index.css">
+
 
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/popper.js/dist/umd/popper.min.js"></script>
@@ -79,16 +81,20 @@
                     <i class="fa">&#xe62d;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)" onclick="register_up()">注册</a>
                 </li>
-                <li class="nav-item">
-                    <i class="fa">&#xe660;</i>
-                    <a class="nav-link nav-a" href="javascript: void(0)">故事</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<i class="fa">&#xe660;</i>-->
+                    <!--<a class="nav-link nav-a" href="javascript: void(0)" onclick="to_story()">故事</a>-->
+                <!--</li>-->
                 <li class="nav-item">
                     <i class="fa">&#xe602;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)" onclick="h_open()">帮助</a>
                 </li>
             </ul>
             <ul class="navbar-nav" id="later">
+                <li class="nav-item">
+                    <i class="fa">&#xe615;</i>
+                    <a class="nav-link nav-a" href="javascript: void(0)" onclick="to_motor()">一起摩旅</a>
+                </li>
                 <li class="nav-item">
                     <i class="fa">&#xe606;</i>
                     <a class="nav-link nav-a" href="javascript: void(0)">出租</a>
@@ -458,10 +464,10 @@
                 <div class="input-group mb-3 fm-text">
                     <input type="text" class="form-control" placeholder="请输入手机号" id="re-phone">
                 </div>
-                <div class="input-group mb-3 fm-text">
-                    <input type="text" class="form-control" placeholder="请输入验证码" id="re-code">
-                    <button type="button" class="btn btn-success re-c-submit" onclick="send_code(event)">发送验证码</button>
-                </div>
+                <!--<div class="input-group mb-3 fm-text">-->
+                    <!--<input type="text" class="form-control" placeholder="请输入验证码" id="re-code">-->
+                    <!--<button type="button" class="btn btn-success re-c-submit" onclick="send_code(event)">发送验证码</button>-->
+                <!--</div>-->
                 <div class="input-group mb-3 fm-text">
                     <input type="password" class="form-control" placeholder="请输入6-12位字符的密码" id="re-pwd">
                 </div>
@@ -554,10 +560,10 @@
                 <div class="input-group mb-3 fm-text">
                     <input type="text" class="form-control" placeholder="请输入手机号" id="rp-phone">
                 </div>
-                <div class="input-group mb-3 fm-text">
-                    <input type="text" class="form-control" placeholder="请输入验证码" id="uppwd-code">
-                    <button type="button" class="btn btn-success" id="uppwd-submit" onclick="send_code(event)">发送验证码</button>
-                </div>
+                <!--<div class="input-group mb-3 fm-text">-->
+                    <!--<input type="text" class="form-control" placeholder="请输入验证码" id="uppwd-code">-->
+                    <!--<button type="button" class="btn btn-success" id="uppwd-submit" onclick="send_code(event)">发送验证码</button>-->
+                <!--</div>-->
                 <div class="input-group mb-3 fm-text">
                     <input type="password" class="form-control" placeholder="请输入6-12位字符的新密码" id="rp-pwd">
                 </div>

@@ -3,6 +3,7 @@ import {APIError, Errors} from "../ApiError/MotorError";
 import {getMilliSeconds, getEncPassword, b64_decode} from "../utils/utils";
 import {SessionModels} from "../SequlizeDB/models/session.models";
 import {SessionAction} from "./sessionAction";
+import {where} from "sequelize";
 
 export interface addUserFilter {
     name: string,
@@ -85,6 +86,21 @@ export class UserAction {
     public static async logoutUser(tooken: string) {
         return await SessionModels.destroy({
             where: {id: tooken}
+        });
+    }
+
+    public static async editUserPwd(paras: any) {
+        let pUser = UserModels.findOne({
+            raw: true,
+            where: {phone: paras.phone, password: getEncPassword(b64_decode(paras.oldPwd))}
+        });
+        if(!pUser) {
+            throw new APIError(Errors.RET_ITEM_NOT_EXIST, "旧密码或手机号输入错误");
+        }
+        return await UserModels.update({
+            password: getEncPassword(b64_decode(paras.newPwd))
+        }, {
+            where: {phone: paras.phone}
         });
     }
 }

@@ -314,10 +314,54 @@ let logout = function() {
     });
 };
 let uppwd = function() {
-
+    if(!phone.test($('#uppwd-phone').val())) {
+        $("#lo-error span").first().first()[0].innerText = "抱歉，我们无法识别您输入的手机号！";
+        $('#lo-error').slideDown(500);
+    } else if(!rex_p.test($('#uppwd-old-pwd').val()) || !rex_p.test($('#uppwd-old-pwd').val())) {
+        $("#lo-error span").first().first()[0].innerText = "抱歉，请输入6-12位字符的密码，不能包含特殊字符！";
+        $('#lo-error').slideDown(500);
+    } else {
+        $.post('/api/', {
+            api: "user.APIEditUserPassword",
+            token: AuthTools.getAuthInfo().tooken,
+            paras: {
+                phone: $('#lo-phone').val(),
+                oldPwd: $('#uppwd-old-pwd').val(),
+                newPwd: $('#uppwd-new-pwd').val()
+            }
+        }, function(data, status) {
+            let e = PublicTools.getErrorObj(data);
+            if(e && e.errorObj.errorNo !== 0) {
+                if(e.errorObj.errorNo === 7) {
+                    $("#uppwd-error span").first().first()[0].innerText = "旧密码或手机号输入错误!";
+                    $('#uppwd-error').slideDown(500);
+                } else {
+                    $("#uppwd-error span").first().first()[0].innerText = e.errorObj.errorMsg;
+                    $('#uppwd-error').slideDown(500);
+                }
+            } else {
+                let dataObj = PublicTools.getDataObj(data);
+                let d = dataObj.data;
+                $("#uppwd-error i").first().first()[0].innerHTML = "&#xe642;";
+                $("#uppwd-error i").first().css("color", "#48a645");
+                $("#uppwd-error span").first().first()[0].innerText = "修改成功，下次登录生效。!";
+                $('#uppwd-error').slideDown(500);
+                setTimeout(() => {
+                    $('.head').removeClass("blur");
+                    $('.content').removeClass("blur");
+                    $('.footer').removeClass("blur");
+                    $('#uppwd-pop').fadeOut();
+                }, 1500);
+            }
+        })
+    }
 };
 let resetPwd = function() {
     /**
      * 重置密码
      */
+};
+
+let to_motor = function() {
+
 };

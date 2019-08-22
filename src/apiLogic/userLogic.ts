@@ -32,3 +32,11 @@ export async function logout_user(paras: any): Promise<ApiResponse> {
         return buildErrorResp(Errors.RET_DB_ERR, e.message);
     }
 }
+export async function edit_user_pwd(paras: any): Promise<ApiResponse> {
+    try {
+        await UserAction.editUserPwd(paras.token);
+        return buildSuccessResp();
+    } catch (e) {
+        return buildErrorResp(Errors.RET_DB_ERR, e.message);
+    }
+}

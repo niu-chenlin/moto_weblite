@@ -1,4 +1,4 @@
-import {add_user, login_user, logout_user} from "../apiLogic/userLogic";
+import {add_user, login_user, logout_user, edit_user_pwd} from "../apiLogic/userLogic";
 import {PARAM_TYPE_STRING, PARAM_NOT_NULL, PARAM_TYPE_INT} from "../apiAction/config";
 
 export const ApiUser = {
@@ -58,6 +58,28 @@ export const ApiUser = {
                     "desc": "tooken",
                     "default": ""
                 }
+            }
+        },
+        {
+            "name": "修改密码",
+            "key": "APIEditUserPassword",
+            "service": edit_user_pwd,
+            "paras": {
+                "phone": {
+                    "type": PARAM_TYPE_STRING,
+                    "desc": "phone",
+                    "default": ""
+                },
+                "oldPwd": {
+                    "type": PARAM_TYPE_STRING,
+                    "desc": "oldPwd",
+                    "default": ""
+                },
+                "newPwd": {
+                    "type": PARAM_TYPE_STRING,
+                    "desc": "newPwd",
+                    "default": ""
+                },
             }
         }
     ]
