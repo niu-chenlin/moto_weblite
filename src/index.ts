@@ -13,6 +13,9 @@ const router:Router = new Router();
 router.get('/', async (ctx) => {
     await ctx.render('index');
 });
+router.get('/motor', async (ctx) => {
+    await ctx.render('motor');
+});
 router.post('/cooperation/', async (ctx) => {
     const data = ctx.request.body;
     let transporter = nodemailer.createTransport({

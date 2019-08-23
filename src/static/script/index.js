@@ -363,5 +363,5 @@ let resetPwd = function() {
 };
 
 let to_motor = function() {
-
+    window.open("/motor");
 };
