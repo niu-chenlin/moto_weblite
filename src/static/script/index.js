@@ -365,3 +365,27 @@ let resetPwd = function() {
 let to_motor = function() {
     window.open("/motor");
 };
+
+let s1 = null;
+let noSession = function() {
+    $.post('/noSession/', {
+        token: "",
+        paras: {
+            phone: 13222222222,
+            password: 'niu123456'
+        }
+    }, function(data, status) {
+        console.log(data);
+    });
+};
+let yesSession = function() {
+    $.post('/session/', {
+        session: "",
+        paras: {
+            phone: 13222222222,
+            password: 'niu123456'
+        }
+    }, function(data, status) {
+        console.log(data);
+    });
+};
